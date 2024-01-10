@@ -28,7 +28,6 @@ const fs = require("fs");
     try {
       const data = JSON.stringify(this.products);
       await fs.promises.writeFile(this.productsFile, data, "utf8");
-      //console.log('Productos guardados correctamente.');
     } catch (error) {
       console.log("No se pudo guardar el archivo de productos.");
     }

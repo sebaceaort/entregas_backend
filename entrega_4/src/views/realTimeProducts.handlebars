@@ -1,0 +1,29 @@
+<div class="container text-center" id="products">
+    <h1>Books Catalog</h1>
+    {{#each products}}
+        <div data-product-id="{{id}}" class="product">
+            <div class="product-info data">
+                <h2>{{title}}</h2>
+                <p>ID: {{id}}</p>
+                <p>Description: {{description}}</p>
+                <p>Code: {{code}}</p>
+                <p>Price: {{price}}</p>
+                {{#if status}}
+                    <p>Status: Available</p>
+                {{else}}
+                    <p>Status: Not Available</p>
+                {{/if}}
+                <p>Stock: {{stock}}</p>
+                <p>Category: {{category}}</p>
+            </div>
+            <div class="product-thumbnail">
+                {{#each thumbnail}}
+                    <img src="{{this}}" alt="{{title}}" width="200" />
+                {{/each}}
+            </div>
+        </div>
+    {{/each}}
+    
+<script src="socket.io/socket.io.js"></script>
+<script src="js/index.js"></script>
+</div>

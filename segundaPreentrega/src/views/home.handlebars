@@ -1,0 +1,23 @@
+<div class="container text-center">
+    <h1>Catalogo</h1>
+    {{#each products}}
+        <div>
+            <h2>{{title}}</h2>
+            <p>ID: {{id}}</p>
+            <p>Description: {{description}}</p>
+            <p>Code: {{code}}</p>
+            <p>Price: ${{price}}</p>
+            {{#if status}}
+                <p>Status: Si</p>
+            {{else}}
+                <p>Status: No</p>
+            {{/if}}
+            <p>Stock: {{stock}}</p>
+            <p>Category: {{category}}</p>
+            {{#each thumbnail}}
+                <img src="{{this}}" alt="{{title}}" width="200" />
+            {{/each}}
+        </div>
+        <hr />
+    {{/each}}
+</div>

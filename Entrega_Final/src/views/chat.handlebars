@@ -1,0 +1,20 @@
+<script src="../public/chat.js"></script>
+<div class="container">
+    <div class="row">
+        <h1 class="display-5 text-center mb-5">Mongo DB Chat</h1>
+        <div id="messages" class="col-md-4"></div>
+        <div class="col-md-4 offset-md-2">
+            <div class="mb-3">
+                <label for="user" class="form-label">User</label>
+                <input type="text" class="form-control" id="user">
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <input type="text" class="form-control" id="message">
+            </div>
+            <button type="button" class="btn btn-primary" id="btnSendMessage">Enviar</button>    
+        </div>
+    </div>
+</div>
+
+<script src="socket.io/socket.io.js"></script>

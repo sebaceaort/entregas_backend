@@ -1,0 +1,36 @@
+<div class="container my-5">
+    <h1 class="text-center mb-4">Catálogo de Productos</h1>
+    <div class="row" id="products">
+        {{#each products}}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm" data-product-id="{{_id}}">                   
+                        {{#each thumbnails}}
+                            <img src="./default.jpg" alt={{title}} class="card-img-top" >
+                        {{/each}}
+                    <div class="card-body">
+                        <h2 class="card-title h5">{{title}}</h2>
+                        <p class="text-muted"><strong>ID:</strong> {{_id}}</p>
+                        <p><strong>Descripción:</strong> {{description}}</p>
+                        <p><strong>Código:</strong> {{code}}</p>
+                        <p><strong>Precio:</strong> ${{price}}</p>
+                        <p><strong>Status:</strong> 
+                            {{#if status}}
+                                <span class="badge badge-success">Disponible</span>
+                            {{else}}
+                                <span class="badge badge-danger">No Disponible</span>
+                            {{/if}}
+                        </p>
+                        <p><strong>Stock:</strong> {{stock}}</p>
+                        <p><strong>Categoría:</strong> {{category}}</p>
+                        <p><a class="link" href=product/{{_id}}>ver mas</a></p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-danger btn-sm mt-2 delete-btn" id="{{_id}}" >Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+<script src="js/index.js"type="text/javascript"></script>

@@ -30,11 +30,20 @@ class ProductManagerMongo {
     console.log("Producto agregado correctamente");
   }
 
-  async getProducts() {
+  async getProducts(limit, page, sort, query) {
+    
+    let sortOption = {};
+    if (sort) {
+      const [field, order] = sort.split(':');
+      if (field === 'price' && (order === 'asc' || order === 'desc')) {
+          sortOption[field] = order === 'asc' ? 1 : -1;
+      }
+  }
     try {
-      const data = await productModel.find().lean();
+      const data = await productModel.paginate(query, {limit, page, sort:sortOption, lean:true});
       return data;
     } catch (error) {
+      console.log(error);
       console.log("No se pudo acceder a la base de datos");
     }
   }

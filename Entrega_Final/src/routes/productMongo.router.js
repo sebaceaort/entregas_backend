@@ -5,8 +5,13 @@ const PM= new ProductManagerMongo();
 const productMongoRouter = Router();
 
 productMongoRouter.get("/", async (req, res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    const page = parseInt(req.query.page) || 1;
+    const sort = req.query.sort;
+    const query = req.query.query;
+
     try {
-        const products = await PM.getProducts();
+        const products = await PM.getProducts(limit, page, sort, query);
         res.status(200).send(products);
     } catch (error) {
         console.log(error);

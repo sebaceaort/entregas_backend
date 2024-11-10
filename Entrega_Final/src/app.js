@@ -6,6 +6,7 @@ import handlebars from "express-handlebars";
 import viewsRouter from "./routes/views.routes.js";
 import productsFSRouter from "./routes/productFS.router.js";
 import productsMongoRouter from "./routes/productMongo.router.js";
+import cartsRouter from "./routes/cart.router.js";
 import ChatManager from "./dao/chatManager.js";
 
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use("/api/FS/products", productsFSRouter);
 app.use("/api/products", productsMongoRouter);
+app.use("/api/carts", cartsRouter);
 app.use("/", viewsRouter);
 
 // const CM = new ChatManager()

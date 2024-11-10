@@ -1,4 +1,4 @@
-import { cartModel } from "./models/cart.model";
+import { cartModel } from "../dao/models/cart.model.js";
 
 class CartManager {
     async newCart() {
@@ -12,7 +12,7 @@ class CartManager {
 
   async getCart(id) {
        try{
-        const cart = await cartModel.findOne({_id:id});
+        const cart = await cartModel.findOne({_id:id}).populate("products.product").lean();
         return cart;
        }catch(error){
            console.log(error);
@@ -28,22 +28,89 @@ class CartManager {
        }
     }
 
-    addProductToCart(cid, pid) {
-        this.carts = this.getCarts();
-        const cart = this.carts.find(item => item.id === cid);
-        let product = cart.products.find(item => item.product === pid);
-
+    async addProductToCart(cid, pid) {
+        const  cart = await this.getCart(cid);
+        let product = cart.products.find(item => {
+            return item.product._id == pid});
+        
         if (product) {
             product.quantity+= 1;
         } else {
             cart.products.push({product:pid, quantity:1});
         }
-
-        this.saveCart();
+        let result = await cartModel.updateOne({_id:cid}, cart);
+        
         console.log("Product added!");
 
         return true;
-    }    
+    }  
+    async deleteProductFromCart(cid, pid) {
+        try{
+        const  cart = await this.getCart(cid);
+        //console.log(cart.products[0].product._id);
+        let index = cart.products.findIndex(item => {
+            console.log(item)
+            console.log(item.product._id);
+            console.log(pid);
+            return item.product._id == pid});
+        console.log(index);
+        if (index > -1) {
+            cart.products.splice(index, 1);            
+        } 
+        let result = await cartModel.updateOne({_id:cid}, cart);
+        console.log("Product deleted!");
+        return result;
+        }catch(error){
+            console.log(error);
+            return{status:"error", message:"Error! No se encuentra el ID de Carrito!"};
+        }
+    }  
+
+    async deleteCart(cid) {
+        try{
+        const  cart = await this.getCart(cid);
+        cart.products=[];
+        let result = await cartModel.updateOne({_id:cid}, cart);
+        
+        console.log("Cart deleted!");
+
+        return result;
+        }catch(error){
+            console.log(error);
+            return{status:"error", message:"Error! No se encuentra el ID de Carrito!"};
+        }
+    }
+
+    async updateProductInCart(cid, pid, quantity) {
+        try{
+        const  cart = await this.getCart(cid);
+        let index = cart.products.indexOf(item => {
+            return item.product._id == pid});
+        
+        if (index > -1) {
+            cart.products[index].quantity = quantity;            
+        } 
+        let result = await cartModel.updateOne({_id:cid}, cart);
+        console.log("Product updated!");
+        return result;
+        }catch(error){
+            console.log(error);
+            return{status:"error", message:"Error! No se encuentra el ID de Carrito!"};
+        }
+    }   
+
+    async updateCart(cid, products) {
+        try{
+        const  cart = await this.getCart(cid);
+        cart.products = products;
+        let result = await cartModel.updateOne({_id:cid}, cart);
+        console.log("Cart updated!");
+        return result;
+        }catch(error){
+            console.log(error);
+            return{status:"error", message:"Error! No se encuentra el ID de Carrito!"};
+        }
+    }
 }
 
 export default CartManager;

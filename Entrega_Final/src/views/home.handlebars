@@ -1,7 +1,30 @@
 <div class="container my-5">
     <h1 class="text-center mb-4">Catálogo de Productos</h1>
-    <div class="row" id="products">
-        {{#each products}}
+    <div class="container mt-4">
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+                <label for="sort" class="mr-2">Ordenar por:</label>
+                <select name="sort" id="sort" class="form-control">
+                    <option value="default">Defecto</option>
+                    <option value="asc">Menor Precio</option>
+                    <option value="desc">Mayor Precio</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <label for="limit" class="mr-2">Ver</label>
+                <select name="limit" id="limit" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button id="filter" class="btn btn-primary mt 2 ">Filtrar</button>
+        </div>
+    </div>
+    <div class="row mt-4" id="products">
+        {{#with products}}
+        {{#each docs}}
             <div class="col-md-4 mb-4">
                 <div class="card h-100 shadow-sm" data-product-id="{{_id}}">                   
                         {{#each thumbnails}}
@@ -26,11 +49,65 @@
                     </div>
                     <div class="card-footer text-center">
                         <button class="btn btn-danger btn-sm mt-2 delete-btn" id="{{_id}}" >Eliminar</button>
+                        <button class="btn btn-primary btn-sm mt-2 edit-btn" id="{{_id}}">Editar</button>
+                        <button class="btn btn-success btn-sm mt-2 buy-btn" id="{{_id}}">Agregar al carrito</button>
                     </div>
                 </div>
             </div>
         {{/each}}
     </div>
+<button class="btn btn-primary" id="prevPage"{{#if hasPrevPage}} {{else}}hidden{{/if}}>prev</button>    
+    <span id="pageCount">{{page}}</span>
+    {{#if hasNextPage}}<button class="btn btn-primary" id="nextPage">next</button>{{/if}}
+
+        {{/with}}
 </div>
+<div class="container mt-5">
+        <h1 class="text-center">Formulario de Producto</h1>
+        <form id="productForm" class="p-4 border rounded">
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Descripción</label>
+                <input type="text" class="form-control" id="description" name="description" required>
+            </div>
+
+            <div class="form-group">
+                <label for="code">Código</label>
+                <input type="text" class="form-control" id="code" name="code" required>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Precio</label>
+                <input type="number" class="form-control" id="price" name="price" required>
+            </div>
+
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="status" name="status">
+                <label class="form-check-label" for="status">Estado (Activo)</label>
+            </div>
+
+            <div class="form-group">
+                <label for="stock">Stock</label>
+                <input type="number" class="form-control" id="stock" name="stock" required>
+            </div>
+
+            <div class="form-group">
+                <label for="category">Categoría</label>
+                <input type="text" class="form-control" id="category" name="category" required>
+            </div>
+
+            <div class="form-group">
+                <label for="thumbnails">Imágenes (URLs separadas por comas)</label>
+                <input type="text" class="form-control" id="thumbnails" name="thumbnails">
+            </div>
+
+            <input type="hidden" id="productId">
+            <button type="button" class="btn btn-primary btn-block mt-3" onclick="submitForm()">Guardar</button>
+        </form>
+    </div>
 
 <script src="js/index.js"type="text/javascript"></script>

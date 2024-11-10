@@ -47,10 +47,8 @@ class CartManager {
     async deleteProductFromCart(cid, pid) {
         try{
         const  cart = await this.getCart(cid);
-        //console.log(cart.products[0].product._id);
         let index = cart.products.findIndex(item => {
             return item.product._id == pid});
-        console.log(index);
         if (index > -1) {
             cart.products.splice(index, 1);            
         } 

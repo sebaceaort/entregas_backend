@@ -15,5 +15,9 @@ function deleteProduct(id) {
         method: 'DELETE',
     })
     .then(response => response.json())
-    .then(data => console.log(data))
-}       
+    .then(data => {
+        location.reload();
+        console.log(data)
+    })
+    }
+        

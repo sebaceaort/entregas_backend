@@ -192,6 +192,7 @@ function renderProduct(product) {
                     <div class="card-footer text-center">
                         <button class="btn btn-danger btn-sm mt-2 delete-btn" id="${product._id}" >Eliminar</button>
                         <button class="btn btn-primary btn-sm mt-2 edit-btn" id="${product._id}">Editar</button>
+                        <button class="btn btn-success btn-sm mt-2 buy-btn" id="${product._id}">Agregar al carrito</button>
                     </div>
                 </div>            
     `;

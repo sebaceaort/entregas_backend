@@ -1,3 +1,5 @@
+const cartId='672f853f971f2f0e6523b56f'
+
 document.addEventListener('DOMContentLoaded',  
     () => {
          buttons()
@@ -10,7 +12,6 @@ let hasprev=false;
 let hasnext=true;
 let totalpages=10;
 
-const cartId='672f853f971f2f0e6523b56f'
 const filter=document.getElementById('filter');
 const nextpage=document.getElementById('nextPage');
 const prevpage=document.getElementById('prevPage');

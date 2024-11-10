@@ -49,9 +49,6 @@ class CartManager {
         const  cart = await this.getCart(cid);
         //console.log(cart.products[0].product._id);
         let index = cart.products.findIndex(item => {
-            console.log(item)
-            console.log(item.product._id);
-            console.log(pid);
             return item.product._id == pid});
         console.log(index);
         if (index > -1) {
